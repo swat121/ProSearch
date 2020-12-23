@@ -1,0 +1,106 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Пошук товару</title>
+    <style>
+        .block {
+            border: 2px solid black;
+            display: inline-block;
+
+        }
+        td  {
+            margin:auto;
+            border: 2px solid #333;
+
+        }
+        .Row100 {
+            padding: 1%;
+            width: 98%;
+        }
+        .FooterImg {
+            max-width:100px;
+            max-height:100px;
+            width:auto;
+            height:auto;
+        }
+        .flex-row {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+        }
+    </style>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+</head>
+<body>
+
+
+<div class="container mt-5 mb-5">
+    <h1>Пошук товара</h1>
+    <form action="/find" th:action="@{/find}" th:object="${infoprod}" method="post">
+         <input  required type="text" th:field="*{name}" placeholder="Введіть назву продукта" class="form-control" ><br>
+        <p th:if="${#fields.hasErrors('name')}" th:errors = " *{name}" style="color: red; border-radius: 5px;border: 1px solid red; padding: 5px; width: 35%">   </p>
+        <button type="submit" class="btn btn-success">Пошук</button>
+
+    </form>
+
+</div>
+
+
+
+
+
+<div class="album py-5 bg-light">
+    <div th:each="el:${product}"  class="container">
+
+        <div class="row">
+            <!--<div class="col-md-4" style="overflow:hidden;">-->
+            <div class="card mb-4 shadow-sm" style=" width:100%;  max-height:300px;padding:2%;display:flex; flex-direction:row">
+
+                <!--<div style="float:left; width:45%; margin:2.5%">
+    <svg  class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em"><img th:src="@{${el.img}}" /></text></svg>
+</div>-->
+                <!--<img th:src="@{${el.img}}" />-->
+                <div style=" border: 1px solid gray;display: flex; align-items: center; justify-content: center; width: 45%;height:90%; max-width:400px; max-height:400px;margin: 2.5%">
+                    <img style="  max-width: 100%; max-height: 100%; width: auto; height: auto; margin:auto;  " th:src="@{${el.img}}" />
+                </div>
+
+
+
+                <div class="card-body" style="margin:2.5%;  width:400px;">
+                    <h1 class="card-text"><span th:text="${el.name}" /> <span th:text="${el.brand}" /></h1>
+                    <p class="card-text">Ціна: <span th:text="${el.price}" /> грн.</p>
+                    <p class="card-text">Колір: <span th:text="${el.color}" /></p>
+                    <p class="card-text">Бренд: <span th:text="${el.brand}" /></p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div class="btn-group" style="margin-left:70%">
+                            <a th:href="'/find/'+ ${el.code}" class="btn btn-primary">Детальніше</a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <!--</div>-->
+
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+<!-- FOOTER******************************************************** -->
+
+<div th:insert="footer :: footer"></div>
+<script src="https://use.fontawesome.com/4167c909a6.js"></script>
+
+
+
+</body>
+</html>
+
+
+

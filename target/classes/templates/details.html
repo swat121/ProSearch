@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Фотография с подписью</title>
+    <style>
+        .exist {
+            color: white;
+            background-color: lightgreen;
+        }
+
+        .nonexist {
+            color: white;
+            background-color: tomato;
+        }
+
+        .flex-row {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+        }
+        .flex-column {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+        }
+
+        .Mymargin {
+            width: 70%;
+            margin:auto;
+            margin-top: 0px;
+        }
+
+
+        .navi-list{
+            padding: 10px;
+            background-color: #e3f2fd;
+            text-decoration: none;
+            border: solid blue 2px;
+            border-radius: 5px;
+            margin: 5px;
+            vertical-align: bottom;
+            margin: auto;
+            font-weight:600;
+        }
+
+        a > div {
+            color: black;
+            text-decoration: none;
+            background: #e3f2fd;
+        }
+
+        a :hover {
+            color: white;
+            text-decoration: none;
+            background: #3577F3;
+        }
+
+
+        a {
+            text-decoration: none;
+            text-decoration: underline;
+        }
+        .true {
+            color: white;
+            background-color: lightgreen;
+        }
+        .false {
+            color: white;
+            background-color: tomato;
+        }
+        /*li {
+        margin:30px 10px;
+        }
+        li > a {
+            padding: 20px;
+            background-color: #e3f2fd;
+            text-decoration: none;
+            border: solid blue 2px;
+            border-radius: 5px;
+            color: white;
+        }
+
+            li > a :hover {
+                text-decoration: none;
+                padding: 20px;
+                background-color: #e3f2fd;
+                border: solid blue 2px;
+                border-radius: 5px;
+                color: white;
+            }
+        li :hover :focus {*/
+
+        /*background-color: #3577F3;
+        text-decoration: none;
+        color: white;
+    }
+    a :hover  {
+        background-color: #3577F3;
+        text-decoration: none;
+        color: red;
+    }
+    .navbar {
+        font-weight: 800;
+        font-size: 14px;
+        padding-top: 15px;
+        padding-bottom: 15px;
+    }
+
+    .navbar-inverse {
+        background: #2d2d2d;
+        border-color: #2d2d2d;
+    }
+
+        .navbar-inverse .navbar-nav > .active > a {
+            background-color: #ff7878;
+        }
+
+        .navbar-inverse .navbar-brand {
+            color: #999;
+            font-weight: bolder;
+            font-size: 22px;
+            letter-spacing: 1px;
+        }*/
+
+
+    </style>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="bootstrap.css">
+</head>
+
+<body style="background-color:#eee">
+
+
+<div th:each="e:${images}">
+    <div th:each="el:${detail}" class="container " style="width:70%; margin:auto; ">
+        <div th:each="ea:${about}" class="card flax-column" style="justify-content:center; border-bottom:white 1px solid;padding-top:3%;">
+            <div class="card-body" style=" margin:auto;;padding-bottom:0px">
+                <h4 class="card-title"> <span style="margin:0;" th:text="${el.name}" /> <span th:text="${el.brand}" /></h4>
+            </div>
+            <div class="card-body flex-row">
+                <div style=" border: 1px solid gray;margin: auto;width: 300px; height: 300px;  display:flex;  align-items: center;  justify-content: center; padding:0px">
+                    <img th:src="@{${e.imageprod}}" class="card-img-top" style="  max-width: 100%; max-height: 100%; width: auto; height: auto; margin:auto;  ">
+                </div>
+                <div th:class="${el.availability}" style="height:40px; border:solid 1px green; border-radius:7px;position:absolute;left:78%;top:13%"><h5 style="margin: 5px;">Наявність</h5></div>
+            </div>
+
+
+            <div class="card-body flex-row" style=" padding-top:0px;">
+                <div style=" margin:auto;">
+
+                    <p class="card-text"><b>Код товару: </b><span th:text="${el.code}" /></p>
+                    <p class="card-text"><b>Ціна: </b><span th:text="${el.price}" /> грн.</p>
+                    <p class="card-text"><b>Країна: вирбник </b><span th:text="${el.country}" /></p>
+                    <p class="card-text"><b>Колір: </b><span th:text="${el.color}" /></p>
+
+                </div>
+                <div style=" margin:auto;">
+                    <p class="card-text"><b>Розмір: </b><span th:text="${el.size}" /></p>
+                    <p class="card-text"><b>Бранд: </b><span th:text="${el.brand}" /></p>
+                    <p class="card-text"><b>Розділ: </b><span th:text="${el.dept}" /></p>
+                </div>
+            </div>
+            <div class="card-body">
+                <p class="card-text" style="margin:2.5%;"><b>Опис: </b><span th:text="${ea.info}" /></p>
+            </div>
+            <div class="card-body" style=" margin: auto;max-width: 1200px; max-height: 800px;  display:flex;  align-items: center;  justify-content: center; padding:0px">
+                <img th:src="@{${e.imagepath}}" class="card-img-top" style="  max-width: 100%; max-height: 100%; width: auto; height: auto; margin:auto;  ">
+            </div>
+            <div class="card-body flex-row">
+                <a href="/find" class="btn btn-sm  btn-primary " style="width:45%; margin:2.5%; border-radius:7px; height:40px;font-weight:400;font-size:large;">Назад</a>
+                <a href="/find" class="btn btn-sm  btn-primary " style="width:45%; margin:2.5%; border-radius:7px; height:40px;font-weight:400;font-size:large;">Додати в кошик</a>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+<div th:insert="footer :: footer"></div>
+<script src="bootstrap.min.js"></script>
+<script src="https://use.fontawesome.com/4167c909a6.js"></script>
+</body>
+</html>
